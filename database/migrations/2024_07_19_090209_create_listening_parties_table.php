@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('listening_parties', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('episode_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('episode_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->boolean('is_active')->default(true);
             $table->dateTime('start_time');

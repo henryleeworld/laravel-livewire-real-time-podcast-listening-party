@@ -94,6 +94,5 @@ class ProcessPodcastUrl implements ShouldQueue
         $this->listeningParty->update([
             'end_time' => $endTime,
         ]);
-
     }
 }

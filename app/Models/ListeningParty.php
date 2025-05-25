@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class ListeningParty extends Model
 {
+    /** @use HasFactory<\Database\Factories\ListeningPartyFactory> */
     use HasFactory;
 
     /**

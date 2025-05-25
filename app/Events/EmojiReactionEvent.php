@@ -2,8 +2,9 @@
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\Channel;
+// use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -18,6 +19,9 @@ class EmojiReactionEvent implements ShouldBroadcastNow
 
     public $userId;
 
+    /**
+     * Create a new event instance.
+     */
     public function __construct($listeningPartyId, $emoji, $userId)
     {
         $this->listeningPartyId = $listeningPartyId;
@@ -25,17 +29,32 @@ class EmojiReactionEvent implements ShouldBroadcastNow
         $this->userId = $userId;
     }
 
-    public function broadcastOn()
+    /**
+     * Get the channels the event should broadcast on.
+     *
+     * @return array<int, \Illuminate\Broadcasting\Channel>
+     */
+    public function broadcastOn(): array
     {
-        return new Channel('listening-party.'.$this->listeningPartyId);
+        return [
+            new PrivateChannel('listening-party.'.$this->listeningPartyId),
+        ];
     }
 
-    public function broadcastAs()
+    /**
+     * The event's broadcast name.
+     */
+    public function broadcastAs(): string
     {
         return 'emoji-reaction';
     }
 
-    public function broadcastWith()
+    /**
+     * Get the data to broadcast.
+     *
+     * @return array<string, mixed>
+     */
+    public function broadcastWith(): array
     {
         return [
             'emoji' => $this->emoji,

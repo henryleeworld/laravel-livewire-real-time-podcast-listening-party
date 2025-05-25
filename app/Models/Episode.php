@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Episode extends Model
 {
+    /** @use HasFactory<\Database\Factories\EpisodeFactory> */
     use HasFactory;
 
     /**

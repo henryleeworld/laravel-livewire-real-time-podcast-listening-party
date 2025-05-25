@@ -2,8 +2,9 @@
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\Channel;
+// use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -16,18 +17,31 @@ class NewMessageEvent implements ShouldBroadcastNow
 
     public $message;
 
+    /**
+     * Create a new event instance.
+     */
     public function __construct($listeningPartyId, $message)
     {
         $this->listeningPartyId = $listeningPartyId;
         $this->message = $message;
     }
 
-    public function broadcastOn()
+    /**
+     * Get the channels the event should broadcast on.
+     *
+     * @return array<int, \Illuminate\Broadcasting\Channel>
+     */
+    public function broadcastOn(): array
     {
-        return new Channel('listening-party.'.$this->listeningPartyId);
+        return [
+            new PrivateChannel('listening-party.'.$this->listeningPartyId),
+        ];
     }
 
-    public function broadcastAs()
+    /**
+     * The event's broadcast name.
+     */
+    public function broadcastAs(): string
     {
         return 'new-message';
     }
