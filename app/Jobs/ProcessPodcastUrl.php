@@ -11,20 +11,11 @@ class ProcessPodcastUrl implements ShouldQueue
 {
     use Queueable;
 
-    public $rssUrl;
-
-    public $listeningParty;
-
-    public $episode;
-
     /**
      * Create a new job instance.
      */
-    public function __construct($rssUrl, $listeningParty, $episode)
+    public function __construct(protected $rssUrl, protected $listeningParty, protected $episode)
     {
-        $this->rssUrl = $rssUrl;
-        $this->listeningParty = $listeningParty;
-        $this->episode = $episode;
     }
 
     /**
@@ -66,12 +57,12 @@ class ProcessPodcastUrl implements ShouldQueue
                 } elseif (count($parts) == 3) {
                     $interval = CarbonInterval::createFromFormat('H:i:s', $episodeLength);
                 } else {
-                    throw new \Exception('Unexpected duration format');
+                    throw new Exception('Unexpected duration format');
                 }
             } else {
                 $interval = CarbonInterval::seconds((int) $episodeLength);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('Error parsing episode duration: '.$e->getMessage());
             $interval = CarbonInterval::hour();
         }

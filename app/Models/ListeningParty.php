@@ -2,23 +2,19 @@
 
 namespace App\Models;
 
+use Database\Factories\ListeningPartyFactory;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
+#[Guarded(['id'])]
 class ListeningParty extends Model
 {
-    /** @use HasFactory<\Database\Factories\ListeningPartyFactory> */
+    /** @use HasFactory<ListeningPartyFactory> */
     use HasFactory;
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array<string>|bool
-     */
-    protected $guarded = ['id'];
 
     /**
      * Get the attributes that should be cast.

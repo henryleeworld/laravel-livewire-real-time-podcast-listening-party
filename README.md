@@ -1,4 +1,4 @@
-# Laravel 12 Livewire 即時 Podcast 聆聽派對
+# Laravel 13 Livewire 即時 Podcast 聆聽派對
 
 Podcast 最初始的意思是一種數位音訊節目，透過 RSS 動態消息分發和匯集內容，讓使用者可以隨時隨地收聽各種內容，無論是新聞、訪談、娛樂或教育類的節目。它的特色在於便捷性和多樣化的內容選擇，無論是通勤、健身還是休閒時光，Podcast 都成為人們重要的資訊和娛樂來源。
 
@@ -43,5 +43,5 @@ $ php artisan queue:work
 ----
 
 ## 畫面截圖
-![](https://i.imgur.com/8Esdm6J.gif)
+![](https://i.imgur.com/1mgcbn1.gif)
 > 一起聊聊對於節目的任何想法，可聽到多元角度的聲音

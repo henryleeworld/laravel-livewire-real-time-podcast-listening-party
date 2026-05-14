@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-// use Illuminate\Broadcasting\Channel;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
@@ -13,28 +13,19 @@ class EmojiReactionEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $listeningPartyId;
-
-    public $emoji;
-
-    public $userId;
-
     /**
      * Create a new event instance.
      */
-    public function __construct($listeningPartyId, $emoji, $userId)
+    public function __construct(protected $listeningPartyId, protected $emoji, protected $userId)
     {
-        $this->listeningPartyId = $listeningPartyId;
-        $this->emoji = $emoji;
-        $this->userId = $userId;
     }
 
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return array<int, \Illuminate\Broadcasting\Channel>
+     * @return Channel|Channel[]|string[]|string
      */
-    public function broadcastOn(): array
+    public function broadcastOn(): Channel|array
     {
         return [
             new PrivateChannel('listening-party.'.$this->listeningPartyId),
@@ -42,7 +33,7 @@ class EmojiReactionEvent implements ShouldBroadcastNow
     }
 
     /**
-     * The event's broadcast name.
+     * Get the name the event should broadcast as.
      */
     public function broadcastAs(): string
     {
@@ -50,7 +41,7 @@ class EmojiReactionEvent implements ShouldBroadcastNow
     }
 
     /**
-     * Get the data to broadcast.
+     * Get the payload the event should broadcast with.
      *
      * @return array<string, mixed>
      */

@@ -2,22 +2,18 @@
 
 namespace App\Models;
 
+use Database\Factories\EpisodeFactory;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+#[Guarded(['id'])]
 class Episode extends Model
 {
-    /** @use HasFactory<\Database\Factories\EpisodeFactory> */
+    /** @use HasFactory<EpisodeFactory> */
     use HasFactory;
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array<string>|bool
-     */
-    protected $guarded = ['id'];
 
     /**
      * Get the podcast that owns the episode.

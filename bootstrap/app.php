@@ -12,9 +12,11 @@ return Application::configure(basePath: dirname(__DIR__))
         channels: __DIR__.'/../routes/channels.php',
         health: '/up',
     )
-    ->withMiddleware(function (Middleware $middleware) {
-        $middleware->append(PersistAuthRedirect::class);
+    ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->web(append: [
+            PersistAuthRedirect::class,
+        ]);
     })
-    ->withExceptions(function (Exceptions $exceptions) {
+    ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();
